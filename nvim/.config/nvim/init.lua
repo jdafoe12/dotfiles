@@ -1,0 +1,8 @@
+require "user.options"
+require "user.keymaps"
+require "user.plugins"
+require "user.theme"
+require "user.toggleterm"
+require "user.lualine"
+require "user.indentline"
+require "user.treesitter"
