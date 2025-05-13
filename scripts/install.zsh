@@ -226,7 +226,7 @@ if [[ -d "$DOTFILES_DIR/.git" && -f "$DOTFILES_DIR/.stow-local-ignore" ]]; then
     # Use stow to create symlinks
     echo "Using stow to create symlinks for dotfiles..."
     cd "$DOTFILES_DIR"
-    sudo -u $ORIG_USER stow -v "${STOW_DIRS[@]}" -t "/home/$ORIG_USER"
+    sudo -u $ORIG_USER stow -v --adopt "${STOW_DIRS[@]}" -t "/home/$ORIG_USER"
     
     echo "Dotfiles have been set up successfully!"
 else
