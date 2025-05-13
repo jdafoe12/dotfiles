@@ -48,7 +48,7 @@ pacman -Syu --noconfirm --needed base-devel git stow
 if ! command -v paru &> /dev/null; then
     echo "Installing paru AUR helper..."
     TMP_DIR=$(mktemp -d)
-    chown $ORIG_USER:$ORIG_USER $TMP_DIR
+    chown $ORIG_USER: $TMP_DIR
     cd $TMP_DIR
     sudo -u $ORIG_USER git clone https://aur.archlinux.org/paru.git
     cd paru
@@ -195,8 +195,7 @@ sudo -u $ORIG_USER git clone https://github.com/zsh-users/zsh-syntax-highlightin
 
 # Setup dotfiles
 echo "Setting up dotfiles..."
-SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
-DOTFILES_DIR=$(dirname "$SCRIPT_DIR")
+DOTFILES_DIR="/home/$ORIG_USER/dotfiles"
 
 # Backup existing configuration files if they exist
 echo "Backing up any existing config files..."
