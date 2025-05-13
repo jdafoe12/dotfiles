@@ -86,6 +86,7 @@ MINIMAL_PACKAGES=(
     rofi-lbonn-wayland-git  # Application launcher (AUR)
     hyprpaper               # Wallpaper
     neovim                  # Text editor
+    pacman-contrib
     
     # Basic utilities
     btop                    # System monitor
