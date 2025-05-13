@@ -240,7 +240,7 @@ for dir in "${STOW_DIRS[@]}"; do
     done
 
     # Now stow should work cleanly
-    sudo -u "$ORIG_USER" stow -v "$dir" -t "/home/$ORIG_USER"
+    sudo -u $ORIG_USER stow -v "${STOW_DIRS[@]}" -t "/home/$ORIG_USER"
 done
     
     echo "Dotfiles have been set up successfully!"
