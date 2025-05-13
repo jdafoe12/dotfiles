@@ -224,9 +224,24 @@ if [[ -d "$DOTFILES_DIR/.git" && -f "$DOTFILES_DIR/.stow-local-ignore" ]]; then
     done
     
     # Use stow to create symlinks
-    echo "Using stow to create symlinks for dotfiles..."
-    cd "$DOTFILES_DIR"
-    sudo -u $ORIG_USER stow -v --adopt "${STOW_DIRS[@]}" -t "/home/$ORIG_USER"
+echo "Using stow to force symlink creation by removing existing files..."
+cd "$DOTFILES_DIR"
+
+for dir in "${STOW_DIRS[@]}"; do
+    echo "Processing $dir..."
+
+    # Preview and remove conflicting files
+    find "$dir" -type f | while read -r file; do
+        target="/home/$ORIG_USER/${file#$dir/}"
+        if [ -e "$target" ] && [ ! -L "$target" ]; then
+            echo "Removing conflicting file: $target"
+            rm -f "$target"
+        fi
+    done
+
+    # Now stow should work cleanly
+    sudo -u "$ORIG_USER" stow -v "$dir" -t "/home/$ORIG_USER"
+done
     
     echo "Dotfiles have been set up successfully!"
 else
