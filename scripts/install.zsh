@@ -140,6 +140,7 @@ SYSTEM_PACKAGES=(
     
     # Utilities
     wl-clipboard
+	unzip
     
     # Audio extras
     pipewire-alsa 
