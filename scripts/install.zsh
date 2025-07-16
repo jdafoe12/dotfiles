@@ -42,7 +42,7 @@ fi
 # Base packages needed for all installation types
 echo "Installing base system packages..."
 sleep 2
-pacman -Syu --noconfirm --needed base-devel git stow
+pacman -Syu --noconfirm --needed base-devel git stow rust
 
 # Set up AUR helper (paru) first - useful for all installation types
 if ! command -v paru &> /dev/null; then
@@ -87,11 +87,17 @@ MINIMAL_PACKAGES=(
     hyprpaper               # Wallpaper
     neovim                  # Text editor
     pacman-contrib
-    
+
     # Basic utilities
     btop                    # System monitor
-    neofetch                # System info
+    fastfetch                # System info
     cava                    # Audio visualizer
+	wtype
+	bc
+	chafa
+	ffmpeg
+    python                  # Python interpreter
+    python-pipx
     
     # Fonts
     ttf-jetbrains-mono-nerd # Primary font
@@ -158,6 +164,7 @@ SYSTEM_PACKAGES=(
 if [[ $INSTALL_TYPE == "minimal" || $INSTALL_TYPE == "userland" || $INSTALL_TYPE == "full" ]]; then
     echo "Installing minimal packages (required for dotfiles)..."
     install_packages "${MINIMAL_PACKAGES[@]}"
+    pipx install git+https://github.com/jdafoe12/anifetch.git@key-press-exit --force
     
     # Enable Bluetooth service for all installation types
     echo "Enabling Bluetooth service..."
@@ -167,6 +174,12 @@ fi
 if [[ $INSTALL_TYPE == "userland" || $INSTALL_TYPE == "full" ]]; then
     echo "Installing userland packages (applications)..."
     install_packages "${USERLAND_PACKAGES[@]}"
+    TMP_RS=$(mktemp -d)
+    git clone https://github.com/TitaniumBrain/rs-matrix.git "$TMP_RS"
+    cd "$TMP_RS"
+    sudo -u $ORIG_USER cargo install --path . --locked
+    cd ~
+    rm -rf "$TMP_RS"
 fi
 
 if [[ $INSTALL_TYPE == "full" ]]; then

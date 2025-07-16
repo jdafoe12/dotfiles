@@ -114,5 +114,9 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+export PATH="$HOME/.cargo/bin:$PATH"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-neofetch
+
+# Created by `pipx` on 2025-07-16 03:24:57
+export PATH="$PATH:/home/main/.local/bin"
+anifetch -k --fast-fetch ~/.config/fastfetch/termGif15.gif -r 10 -W 40 -H 20 -c "--symbols ascii --fg-only"
