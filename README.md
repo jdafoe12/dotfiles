@@ -94,14 +94,8 @@ To use an alternate keyboard layout:
    ```sh
    nano ~/dotfiles/hypr/.config/hypr/hyprland.conf
    ```
-   Uncomment or add the line:
+   Uncomment the line:
    ```
    kb_variant = workman
    ```
    Replace `workman` with your layout if needed.
-
----
-
-## License
-
-See [LICENSE](./LICENSE) for details.
