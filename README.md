@@ -8,7 +8,7 @@ First, install arch linux following [this guide](https://wiki.archlinux.org/titl
 
 Next, install `sudo`, `zsh`, `git`, and `nano`:
 ```zsh
-pacman -S sudo zsh git
+pacman -S sudo zsh git nano
 ```
 
 Create a user, add them to the `wheel` group, and set a password:
