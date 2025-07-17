@@ -219,11 +219,12 @@ mkdir -p "$BACKUP_DIR"
 if [[ -d "$DOTFILES_DIR/.git" && -f "$DOTFILES_DIR/.stow-local-ignore" ]]; then
     echo "Detected dotfiles repository at $DOTFILES_DIR"
     
-    # Create list of directories to stow
+    # Create list of directories to stow, EXCLUDING 'caelestia' and 'caelestia-schemes'
     STOW_DIRS=()
     for dir in "$DOTFILES_DIR"/*/; do
-        if [[ -d "$dir" && ! "$dir" =~ "\.git" && ! "$dir" =~ "scripts" ]]; then
-            STOW_DIRS+=($(basename "$dir"))
+        BASENAME=$(basename "$dir")
+        if [[ -d "$dir" && "$BASENAME" != "caelestia" && "$BASENAME" != "caelestia-schemes" && ! "$dir" =~ "\.git" && ! "$dir" =~ "scripts" ]]; then
+            STOW_DIRS+=("$BASENAME")
         fi
     done
     
