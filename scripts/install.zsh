@@ -82,10 +82,8 @@ MINIMAL_PACKAGES=(
     # Core experience
     kitty                   # Terminal
     hyprland                # Window manager
-    waybar                  # Status bar
-    rofi-lbonn-wayland-git  # Application launcher (AUR)
-    hyprpaper               # Wallpaper
     neovim                  # Text editor
+    caelestia-shell-git
     pacman-contrib
 
     # Basic utilities
@@ -239,11 +237,46 @@ if [[ -d "$DOTFILES_DIR/.git" && -f "$DOTFILES_DIR/.stow-local-ignore" ]]; then
     done
     
     # Use stow to create symlinks
-echo "Using stow to setup symlinks..."
-cd "$DOTFILES_DIR"
-sudo -u $ORIG_USER stow -v --adopt "${STOW_DIRS[@]}" -t "/home/$ORIG_USER"
-git -C "$DOTFILES_DIR" reset --hard HEAD
+    echo "Using stow to setup symlinks..."
+    cd "$DOTFILES_DIR"
+    sudo -u $ORIG_USER stow -v --adopt "${STOW_DIRS[@]}" -t "/home/$ORIG_USER"
+    git -C "$DOTFILES_DIR" reset --hard HEAD
 
+    # Setup caelestia system configuration
+    echo "Setting up caelestia system configuration..."
+    CAELESTIA_TARGET="/etc/xdg/quickshell/caelestia"
+    
+    # Create target directory if it doesn't exist
+    mkdir -p "$CAELESTIA_TARGET"
+    
+    # Use stow to create system symlinks for caelestia (--adopt will handle existing files)
+    stow -v --adopt caelestia -t "$CAELESTIA_TARGET"
+    echo "Caelestia configuration linked successfully!"
+    
+    # Setup caelestia schemes
+    echo "Setting up caelestia schemes..."
+    SCHEMES_DIR=$(python3 - <<'EOF'
+import pathlib, sys
+try:
+    import caelestia
+except ImportError:
+    sys.exit("Caelestia not importable")
+print((pathlib.Path(caelestia.__file__).resolve().parent / "data" / "schemes").as_posix())
+EOF
+)
+    
+    if [[ $? -eq 0 && -n "$SCHEMES_DIR" ]]; then
+        echo "Caelestia schemes directory: $SCHEMES_DIR"
+        # Create target directory if it doesn't exist
+        mkdir -p "$SCHEMES_DIR"
+        
+        # Use stow to create schemes symlinks
+        stow -v --adopt caelestia-schemes -t "$SCHEMES_DIR"
+        echo "Caelestia schemes linked successfully!"
+    else
+        echo "Warning: Could not determine caelestia schemes directory"
+        echo "Caelestia may not be installed yet or not importable"
+    fi
     
     echo "Dotfiles have been set up successfully!"
 else
