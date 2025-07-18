@@ -3,3 +3,4 @@
 ^/README.md
 ^/Dockerfile
 ^/scripts
+^/caelestia-config-backup\.hook
