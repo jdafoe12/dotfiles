@@ -1,0 +1,14 @@
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = caelestia-shell-git
+
+[Action]
+Description = Backup Caelestia dotfiles before update
+When = PreTransaction
+Exec = /bin/bash -c 'cp -r /home/main/dotfiles/caelestia /tmp/caelestia-backup'
+
+[Action]
+Description = Restore Caelestia dotfiles after update
+When = PostTransaction
+Exec = /bin/bash -c 'cd /home/main/dotfiles && stow caelestia -t /etc/xdg/quickshell/caelestia && rm -rf /tmp/caelestia-backup' 

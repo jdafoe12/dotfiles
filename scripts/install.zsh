@@ -254,6 +254,11 @@ if [[ -d "$DOTFILES_DIR/.git" && -f "$DOTFILES_DIR/.stow-local-ignore" ]]; then
     stow -v --adopt caelestia -t "$CAELESTIA_TARGET"
     echo "Caelestia configuration linked successfully!"
     
+    # Setup pacman hook to protect Caelestia dotfiles during updates
+    echo "Setting up pacman hook to protect Caelestia configuration..."
+    sudo cp "$DOTFILES_DIR/caelestia-config-backup.hook" /etc/pacman.d/hooks/
+    echo "Pacman hook installed successfully!"
+    
     # Setup caelestia schemes
     echo "Setting up caelestia schemes..."
     SCHEMES_DIR=$(python3 - <<'EOF'
