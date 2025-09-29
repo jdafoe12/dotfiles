@@ -9,7 +9,7 @@ return {
         "python", "javascript", "typescript",
         "c", "cpp", "rust",
         "html", "css", "json", "yaml", "markdown",
-        "bash"
+        "bash", "isabelle"
       },
       
       -- Install parsers synchronously (only applied to `ensure_installed`)
