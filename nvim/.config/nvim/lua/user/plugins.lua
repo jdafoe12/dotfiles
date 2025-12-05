@@ -31,4 +31,5 @@ lazy.setup({
 	{'gbprod/nord.nvim'},
 	{'nvim-lualine/lualine.nvim'},   -- Line at bottom of screen
 	{'akinsho/toggleterm.nvim', version = "*", config = true},
+	{'lsrcz/isabelle.vim', ft = "isabelle"},
 })
