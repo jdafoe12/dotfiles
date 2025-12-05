@@ -96,6 +96,8 @@ MINIMAL_PACKAGES=(
 	ffmpeg
     python                  # Python interpreter
     python-pipx
+    podman                # Containerization
+    distrobox             # linux container manager
     
     # Fonts
     ttf-jetbrains-mono-nerd # Primary font
