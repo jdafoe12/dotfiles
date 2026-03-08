@@ -2,4 +2,6 @@ Dockerfile
 scripts/build-docker.zsh
 scripts/test-zsh-script.zsh
 obsidian/Obsidian/Master Vault/
+obsidian/Obsidian/master/   
 obsidian/Obsidian/Publish/
+obsidian/Obsidian/claw/

@@ -98,6 +98,7 @@ MINIMAL_PACKAGES=(
     python-pipx
     podman                # Containerization
     distrobox             # linux container manager
+	jq
     
     # Fonts
     ttf-jetbrains-mono-nerd # Primary font
@@ -138,6 +139,7 @@ USERLAND_PACKAGES=(
     # Specialized
     # mathematica             # Math software (AUR)
 	virtualbox
+
 )
 
 SYSTEM_PACKAGES=(
@@ -164,7 +166,7 @@ SYSTEM_PACKAGES=(
 if [[ $INSTALL_TYPE == "minimal" || $INSTALL_TYPE == "userland" || $INSTALL_TYPE == "full" ]]; then
     echo "Installing minimal packages (required for dotfiles)..."
     install_packages "${MINIMAL_PACKAGES[@]}"
-    sudo -u $ORIG_USER pipx install git+https://github.com/jdafoe12/anifetch.git@key-press-exit --force
+    sudo -u $ORIG_USER bash -c "curl -fsSL https://raw.githubusercontent.com/Notenlish/anifetch/refs/heads/main/install.sh | bash"
     
     # Enable Bluetooth service for all installation types
     echo "Enabling Bluetooth service..."
